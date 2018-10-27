@@ -55,6 +55,7 @@ __global__ void build_image(unsigned char *original, unsigned char *equalized,
 void equalize(Mat &original, Mat &equalized) {
 
   int bytes = original.step * original.rows;
+  int histogram[256] = {};
 
   unsigned char *d_original, *d_equalized;
   int *d_histogram, *d_equalized_histogram;
@@ -72,6 +73,10 @@ void equalize(Mat &original, Mat &equalized) {
   SAFE_CALL(
       cudaMemcpy(d_original, original.ptr(), bytes, cudaMemcpyHostToDevice),
       "CUDA memcpy host to device failed");
+  cudaMemcpy(d_equalized, equalized.ptr(), bytes, cudaMemcpyHostToDevice);
+  cudaMemcpy(d_histogram, histogram, sizeof(int) * 256, cudaMemcpyHostToDevice);
+  cudaMemcpy(d_equalized_histogram, histogram, sizeof(int) * 256,
+             cudaMemcpyHostToDevice);
 
   auto start = chrono::high_resolution_clock::now();
 
