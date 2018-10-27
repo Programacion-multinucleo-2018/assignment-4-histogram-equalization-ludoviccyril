@@ -73,10 +73,15 @@ void equalize(Mat &original, Mat &equalized) {
   SAFE_CALL(
       cudaMemcpy(d_original, original.ptr(), bytes, cudaMemcpyHostToDevice),
       "CUDA memcpy host to device failed");
-  cudaMemcpy(d_equalized, equalized.ptr(), bytes, cudaMemcpyHostToDevice);
-  cudaMemcpy(d_histogram, histogram, sizeof(int) * 256, cudaMemcpyHostToDevice);
-  cudaMemcpy(d_equalized_histogram, histogram, sizeof(int) * 256,
-             cudaMemcpyHostToDevice);
+  SAFE_CALL(
+      cudaMemcpy(d_equalized, equalized.ptr(), bytes, cudaMemcpyHostToDevice),
+      "CUDA memcpy host to device failed");
+  SAFE_CALL(cudaMemcpy(d_histogram, histogram, sizeof(int) * 256,
+                       cudaMemcpyHostToDevice),
+            "CUDA memcpy host to device failed");
+  SAFE_CALL(cudaMemcpy(d_equalized_histogram, histogram, sizeof(int) * 256,
+                       cudaMemcpyHostToDevice),
+            "CUDA memcpy host to device failed");
 
   auto start = chrono::high_resolution_clock::now();
 
@@ -132,12 +137,12 @@ int main(int argc, char *argv[]) {
 
   equalize(original, equalized);
 
-  // imshow("ORIGINAL", original);
-  // imshow("EQUALIZED", equalized);
+  imshow("ORIGINAL", original);
+  imshow("EQUALIZED", equalized);
 
-  imwrite("output.jpg", equalized);
+  // imwrite("output.jpg", equalized);
 
-  // waitKey();
+  waitKey();
 
   return 0;
 }
