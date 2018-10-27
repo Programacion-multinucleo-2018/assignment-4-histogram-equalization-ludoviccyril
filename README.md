@@ -24,3 +24,9 @@ Rubric:
 5. For the GPU version, used shared memory where necessary.
 6. Both images are displayed at the end.
 7. Calculation times and speedup obtained are incuded in the Readme.
+
+## Results
+
+Image used | Average execution time w/CPU | Average execution time w/GPU | Speedup
+-|-|-|-
+dog2.jpeg | 152.325ms | 17.0066ms | 8.96
