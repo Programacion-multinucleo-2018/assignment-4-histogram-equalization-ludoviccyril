@@ -25,8 +25,10 @@ Rubric:
 6. Both images are displayed at the end.
 7. Calculation times and speedup obtained are incuded in the Readme.
 
-**NOTES**
+**Grade: 100**
 
-1. Did not upload anything.
+## Results
 
-**Grade: 0**
+Image used | Average execution time w/CPU | Average execution time w/GPU | Speedup
+-|-|-|-
+dog2.jpeg | 152.325ms | 17.0066ms | 8.96
